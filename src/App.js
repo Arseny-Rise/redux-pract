@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+import { legacy_createStore as createStore, bindActionCreators } from 'redux';
+
+import Counter from './Counter';
+import reducer from './reducer';
+
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const store = createStore(
+        reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    );
+
+    return (
+        <div className="App">
+            {
+                <Provider store={store}>
+                    <Counter />
+                </Provider>
+            }
+        </div>
+    );
 }
 
 export default App;
